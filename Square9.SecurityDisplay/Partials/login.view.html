@@ -11,6 +11,11 @@
             <input type="password" name="password" id="password" class="form-control" ng-model="password" required />
             <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
         </div>
+        <div class="form-group" ng-class="{ 'has-error': form.domain.$dirty && form.domain.$error.required}">
+            <label for="domain">Domain</label>
+            <input name="domain" id="domain" class="form-control" ng-model="domain" required />
+            <span ng-show="form.domain.$dirty && form.domain.$error.required" class="help-block">Domain is required</span>
+        </div>
         <div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Login</button>
         </div>

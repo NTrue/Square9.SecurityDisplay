@@ -53,6 +53,23 @@ namespace Square9.SecurityDisplay.Logic
                 return Users;
         }
 
+        public Models.License GetLicense(string UserName, string Password, string domain = "")
+        {
+            Models.License license = new Models.License();
+            try
+            {
+                var api = new Requests.ConnectorApi(ConfigurationManager.AppSettings["Square9Api"], domain + @"\" + UserName, Password);
+                license = api.Requests.Licenses.GetLicense();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Unable to return list of Secured Users:  " + ex.Message);
+            }
+
+            return license;
+        }
+
         public List<Models.SecuredGroup> GetSecuredUsers(string domain, string UserName, string Password)
         {
             List<Models.SecuredGroup> SecuredUsers = new List<Models.SecuredGroup>();
