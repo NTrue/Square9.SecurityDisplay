@@ -5,7 +5,7 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$scope', 'LoginService']; 
+    LoginController.$inject = ['$location', '$scope', 'LoginService', '$cookies']; 
     function LoginController($location, $scope, LoginService, $cookies) {
         /* jshint validthis:true */
 
@@ -20,7 +20,7 @@
             $scope.dataLoading = true;
             LoginService.login($scope.username, $scope.password, $scope.domain, function (response) {
             if (response.data.Token != null) {
-                LoginService.SetCredentials($scope.domain, $scope.username, $scope.password);
+                LoginService.SetCredentials($scope.username, $scope.password, $scope.domain, $scope.isDomain, response.data.Token);
                 $location.path('/');
             }
             else

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Text;
 
 namespace Square9.SecurityDisplay.Controllers
 {
@@ -76,15 +77,21 @@ namespace Square9.SecurityDisplay.Controllers
         //(api/users/tree?DomainOrServerName={computer name/domain}&UserName={username}&Password={password})
         [HttpGet]
         [ActionName("permissions")]
-        public List<Models.Permissions> GetAllDatabasePermissions(string DomainOrServerName, string UserName, string Password, int DatabaseID, bool domain = true)
-
+        public List<Models.Permissions> GetAllDatabasePermissions(int DatabaseID, bool isDomain = true)
         {
             List<Models.Permissions> permissions = new List<Models.Permissions>();
+            IEnumerable<string> headerValues;
+            var authHeader = string.Empty;
+            if (Request.Headers.TryGetValues("Authorization", out headerValues))
+            {
+                authHeader = headerValues.FirstOrDefault();
+            }
 
             try
             {
                 var logic = new Square9.SecurityDisplay.Logic.UsersLogic();
-                permissions = logic.GetAllDatabasePermissions(DomainOrServerName, UserName, Password, DatabaseID, domain);
+                var authData = logic.GetAuthValues(authHeader);
+                permissions = logic.GetAllDatabasePermissions(authData.Domain, authData.Username, authData.Password, DatabaseID, isDomain);
             }
             catch (Exception)
             {

@@ -6,6 +6,12 @@ using System.Runtime.Serialization;
 
 namespace Square9.SecurityDisplay.Models
 {
+    public class AuthValues
+    {
+        public string Domain { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
 
     public class Permissions
     {
@@ -80,12 +86,28 @@ namespace Square9.SecurityDisplay.Models
         public string DefaultAccessSearch { get; set; }
     }
 
+    [DataContract]
     public class Database
     {
+        [DataMember]
         public Int32 Id { get; set; }
+        [DataMember]
         public String Name { get; set; }
+        [DataMember]
         public Int32 SecurityLevel { get; set; }
+        [DataMember]
         public String Manager { get; set; }
+    }
+
+    [DataContract()]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.datacontract.org/2004/07/Square9.Objects")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://schemas.datacontract.org/2004/07/Square9.Objects", IsNullable = false)]
+    public class DatabaseList
+    {
+        [DataMember()]
+        public List<Database> Databases { get; set; }
     }
 
     [DataContract()]

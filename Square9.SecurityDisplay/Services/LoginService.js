@@ -108,12 +108,14 @@
                 });
         }
 
-        function SetCredentials(username, password, domain) {
+        function SetCredentials(username, password, domain, isDomain, token) {
             var authdata = Base64.encode(domain + '\\' + username + ':' + password);
             $rootScope.globals = {
                 currentUser: {
                     username: username,
-                    authdata: authdata
+                    authdata: authdata,
+                    isDomain: isDomain,
+                    DatabaseID: 0
                 }
             };
 

@@ -150,11 +150,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AngularControllers\DatabaseController.js" />
+    <Content Include="AngularControllers\DisplayController.js" />
     <Content Include="AngularControllers\LoginController.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Partials\databases.view.html" />
+    <Content Include="Partials\display.view.html" />
     <Content Include="Partials\home.view.html" />
     <Content Include="Partials\login.view.html" />
     <Content Include="scripts\jquery-3.1.1.slim.min.map" />
@@ -195,6 +199,8 @@
     <Content Include="scripts\jquery-3.1.1.min.js" />
     <Content Include="scripts\jquery-3.1.1.slim.js" />
     <Content Include="scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Services\DatabaseService.js" />
+    <Content Include="Services\DisplayService.js" />
     <Content Include="Services\LoginService.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -202,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\DatabasesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Logic\UsersLogic.cs" />

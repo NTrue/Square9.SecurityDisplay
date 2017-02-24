@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading;
 using RestSharp;
 using Square9.SecurityDisplay.Models;
 using Newtonsoft.Json;
+using System.Runtime.Serialization.Json;
+using System.Web.Script.Serialization;
 
 namespace Square9.SecurityDisplay.Requests
 {
@@ -36,6 +40,22 @@ namespace Square9.SecurityDisplay.Requests
             { }
             public ApiException(String message, Exception inner) : base(message, inner)
             { }
+        }
+
+        public Models.DatabaseList GetDatabaseList()
+        {
+            Models.DatabaseList DatabaseList = new Models.DatabaseList();
+            var request = new RestRequest("api/dbs/");
+            var usersResponse = ApiClient.Execute<Models.DatabaseList>(request);
+
+            //MemoryStream stream1 = new MemoryStream();
+            //DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<Models.Database>));
+            //List<Models.Database> data = (List<Models.Database>)ser.ReadObject(stream1);
+            //var serializer = new JavaScriptSerializer();
+            //DatabaseList = serializer.Deserialize<List<Models.Database>>(usersResponse.Content.ToString());
+            DatabaseList = JsonConvert.DeserializeObject<Models.DatabaseList>(usersResponse.Content);
+            //DatabaseList = usersResponse.Content;
+            return DatabaseList;
         }
 
         public List<Models.SecuredGroup> GetUsersAndGroups(String Token)

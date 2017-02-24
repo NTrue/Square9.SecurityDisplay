@@ -16,6 +16,16 @@
             <input name="domain" id="domain" class="form-control" ng-model="domain" required />
             <span ng-show="form.domain.$dirty && form.domain.$error.required" class="help-block">Domain is required</span>
         </div>
+        <div class="form-group">
+            <label class="radio-inline">
+                <input type="radio" name="isDomain" id="isDomain1" ng-Model="isDomain" value="true" ng-checked="true"> 
+                Domain
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="isDomain" id="isDomain2" ng-Model="isDomain" value="false">
+                Local Server
+            </label>
+        </div>
         <div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Login</button>
         </div>

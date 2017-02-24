@@ -8,11 +8,16 @@
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                    templateUrl: 'partials/home.view.html'
+                    controller: 'DatabaseController',
+                    templateUrl: 'partials/databases.view.html'
             })
             .when('/login', {
                     controller: 'LoginController',
                     templateUrl: 'partials/login.view.html',
+            })
+            .when('/securitydisplay', {
+                controller: 'DisplayController',
+                templateUrl: 'partials/display.view.html',
             })
             .otherwise({
                     redirectTo: '/login'

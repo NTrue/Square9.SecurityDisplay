@@ -5,6 +5,7 @@ using System.Web;
 using System.Configuration;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using System.Text;
 using System.Web.Hosting;
 
 namespace Square9.SecurityDisplay.Logic
@@ -68,6 +69,22 @@ namespace Square9.SecurityDisplay.Logic
             }
 
             return license;
+        }
+
+        public Models.DatabaseList GetDatabases(string UserName, string Password, string domain = "")
+        {
+            Models.DatabaseList DatabaseList = new Models.DatabaseList();
+            try
+            {
+                var api = new Requests.ConnectorApi(ConfigurationManager.AppSettings["Square9Api"], domain + @"\" + UserName, Password);
+                DatabaseList = api.Requests.UserRequests.GetDatabaseList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Unable to return list of Secured Users:  " + ex.Message);
+            }
+            return DatabaseList;
         }
 
         public List<Models.SecuredGroup> GetSecuredUsers(string domain, string UserName, string Password)
@@ -354,6 +371,28 @@ namespace Square9.SecurityDisplay.Logic
             return permission;
         }
 
+        public Models.AuthValues GetAuthValues(string authHeader)
+        {
+            var authData = new Models.AuthValues();
+
+            if (authHeader != null && authHeader.StartsWith("Basic"))
+            { 
+                string encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
+                Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+                string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
+                int seperatorIndex = usernamePassword.IndexOf(':');
+                int domainSeperatorIndex = (usernamePassword.IndexOf('\\') + 1);
+                authData.Domain = usernamePassword.Substring(0, domainSeperatorIndex - 1);
+                authData.Username = usernamePassword.Substring(domainSeperatorIndex, seperatorIndex - domainSeperatorIndex);
+                authData.Password = usernamePassword.Substring(seperatorIndex + 1);
+            }
+            else {
+                //Handle what happens if that isn't the case
+                throw new Exception("The authorization header is either empty or isn't Basic.");
+            }
+
+            return authData;
+        }
 
     }
 }
