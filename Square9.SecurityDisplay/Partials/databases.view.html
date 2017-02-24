@@ -1,0 +1,6 @@
+﻿<div class="col-md-6 col-md-offset-3">
+    <h2>Databases</h2>
+    <div class="btn-group-vertical" role="group" style="width:100%">
+        <button class="btn btn-default" ng-repeat="database in DatabaseList.Databases" ng-click="SelectDB(database.Id)">{{database.Name}}</button>
+    </div>
+</div>
