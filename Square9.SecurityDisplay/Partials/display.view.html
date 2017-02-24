@@ -1,10 +1,84 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
-
-</body>
-</html>
+﻿<div class="col-md-12">
+    <h3><i class="fa fa-database" aria-hidden="true"></i>  {{DatabaseName}}</h3>
+<div class="panel panel-default" ng-repeat="permission in SecurityData">
+<div class="panel-body">
+        <h4><i class="fa fa-folder fa-fw" aria-hidden="true"></i>    {{permission.ArchiveName}}</h4>
+        <h4><i class="fa fa-users fa-fw" aria-hidden="true" ng-show="permission.Group"></i>    {{permission.Group}}</h4>
+        <h4><i class="fa fa-user fa-fw" aria-hidden="true"></i>    {{permission.User}}</h4>
+    <h4>Folder Level Security</h4>
+    <table class="table">
+        <tr> 
+            <th>View</th>
+            <th>Add</th>
+            <th>Delete</th>
+            <th>Move</th>
+            <th>View Revisions</th>
+            <th>View History</th>
+            <th>Delete Errored Batches</th>
+            <th>Api Full Access</th>
+        </tr>
+        <tr>
+            <td>{{permission.FolderLevel.View}}</td>
+            <td>{{permission.FolderLevel.Add}}</td>
+            <td>{{permission.FolderLevel.Delete}}</td>
+            <td>{{permission.FolderLevel.Move}}</td>
+            <td>{{permission.FolderLevel.ViewRevisions}}</td>
+            <td>{{permission.FolderLevel.ViewHistory}}</td>
+            <td>{{permission.FolderLevel.DeleteErroredBatches}}</td>
+            <td>{{permission.FolderLevel.APIFullAccess}}</td>
+        </tr>
+    </table>
+    <h4>Document Level Security</h4>
+    <table class="table">
+        <tr>
+            <th>Modify Document</th>
+            <th>Modify Pages</th>
+            <th>Modify Data</th>
+            <th>Modify Annotations</th>
+            <th>Publish Revisions</th>
+        </tr>
+        <tr>
+            <td>{{permission.DocumentLevel.ModifyDocument}}</td>
+            <td>{{permission.DocumentLevel.ModifyPages}}</td>
+            <td>{{permission.DocumentLevel.ModifyData}}</td>
+            <td>{{permission.DocumentLevel.ModifyAnnotations}}</td>
+            <td>{{permission.DocumentLevel.PublishRevisions}}</td>
+        </tr>
+    </table>
+    <h4>Export Level Security</h4>
+    <table class="table">
+        <tr>
+            <th>Print</th>
+            <th>Email</th>
+            <th>Export Document</th>
+            <th>Export Data</th>
+            <th>View in Acrobat</th>
+            <th>Launch</th>
+            <th>Launch Copy</th>
+        </tr>
+        <tr>
+            <td>{{permission.ExportLevelSecurity.Print}}</td>
+            <td>{{permission.ExportLevelSecurity.Email}}</td>
+            <td>{{permission.ExportLevelSecurity.ExportDocument}}</td>
+            <td>{{permission.ExportLevelSecurity.ExportData}}</td>
+            <td>{{permission.ExportLevelSecurity.ViewInAcrobat}}</td>
+            <td>{{permission.ExportLevelSecurity.Launch}}</td>
+            <td>{{permission.ExportLevelSecurity.LaunchCopy}}</td>
+        </tr>
+    </table>
+    <h4>Export Level Security</h4>
+    <table class="table">
+        <tr>
+            <th>Searches</th>
+            <th>Default Archive Search</th>
+            <th>Default Access Search</th>
+        </tr>
+        <tr>
+            <td>{{permission.SearchSecurity.Searches}}</td>
+            <td>{{permission.SearchSecurity.DefaultArchiveSearch}}</td>
+            <td>{{permission.SearchSecurity.DefaultAccessSearch}}</td>
+        </tr>
+    </table>
+    </div>
+</div>
+</div>

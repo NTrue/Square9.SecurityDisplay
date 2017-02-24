@@ -12,8 +12,9 @@
         (function initController() {
             // reset login status
             $rootScope.globals = $cookieStore.get('globals') || {};
+            $scope.DatabaseName = $rootScope.globals.currentUser.DatabaseName;
             DisplayService.GetSecurityInfo(function (response) {
-                $scope.thing = response.data;
+                $scope.SecurityData = response.data;
             });
         })();
     }

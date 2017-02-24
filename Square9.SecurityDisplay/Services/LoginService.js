@@ -115,7 +115,8 @@
                     username: username,
                     authdata: authdata,
                     isDomain: isDomain,
-                    DatabaseID: 0
+                    DatabaseID: 0,
+                    DatabaseName: ""
                 }
             };
 

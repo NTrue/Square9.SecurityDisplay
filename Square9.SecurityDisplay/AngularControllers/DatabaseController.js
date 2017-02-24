@@ -18,9 +18,10 @@
             });
         })();          
 
-        function SelectDB(databaseid) {
+        function SelectDB(databaseid, databasename) {
             $rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.globals.currentUser.DatabaseID = databaseid;
+            $rootScope.globals.currentUser.DatabaseName = databasename;
             $cookieStore.put('globals', $rootScope.globals);
             $location.path('/securitydisplay');
         }

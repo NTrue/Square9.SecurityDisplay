@@ -82,7 +82,7 @@ namespace Square9.SecurityDisplay.Models
     public class SearchSecurity
     {
         public string Searches { get; set; }
-        public string DeafaultArchiveSearch { get; set; }
+        public string DefaultArchiveSearch { get; set; }
         public string DefaultAccessSearch { get; set; }
     }
 
