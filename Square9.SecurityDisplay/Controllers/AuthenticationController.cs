@@ -14,24 +14,30 @@ namespace Square9.SecurityDisplay.Controllers
     {
         [HttpGet]
         [ActionName("license")]
-        public Models.License getLicense()
+        public HttpResponseMessage getLicense()
         {
 
             IEnumerable<string> headerValues;
             var authHeader = string.Empty;
-
-            if (Request.Headers.TryGetValues("Authorization", out headerValues))
+            try
             {
-               authHeader = headerValues.FirstOrDefault();
+                if (Request.Headers.TryGetValues("Authorization", out headerValues))
+                {
+                    authHeader = headerValues.FirstOrDefault();
+                }
+
+                var license = new Models.License();
+                var logic = new Logic.UsersLogic();
+                var authData = logic.GetAuthValues(authHeader);
+
+                license = logic.GetLicense(authData.Username, authData.Password, authData.Domain);
+
+                return Request.CreateResponse(HttpStatusCode.OK, license);
             }
-
-            var license = new Models.License();
-            var logic = new Logic.UsersLogic();
-            var authData = logic.GetAuthValues(authHeader);
-
-            license = logic.GetLicense(authData.Username, authData.Password, authData.Domain);
-
-            return license;
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden, "Unable to get license: " + ex.Message);
+            }
         }
     }
 }

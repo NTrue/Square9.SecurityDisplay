@@ -81,7 +81,6 @@ namespace Square9.SecurityDisplay.Logic
             }
             catch (Exception ex)
             {
-
                 throw new Exception("Unable to return list of Secured Users:  " + ex.Message);
             }
             return DatabaseList;

@@ -14,7 +14,7 @@ namespace Square9.SecurityDisplay.Controllers
         //(api/users/groupusers?DomainOrServerName={computer name/domain}&GroupName={group name}&Domain=false)
         [HttpGet]
         [ActionName("groupusers")]
-        public List<string> Get(string DomainOrServerName, string GroupName, bool Domain = true)
+        public HttpResponseMessage Get(string DomainOrServerName, string GroupName, bool Domain = true)
         {
             List<string> Users = new List<string>();
 
@@ -23,19 +23,18 @@ namespace Square9.SecurityDisplay.Controllers
                 var logic = new Square9.SecurityDisplay.Logic.UsersLogic();
                 Users = logic.GetUsersOfGroup(DomainOrServerName, GroupName, Domain);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return Request.CreateResponse(HttpStatusCode.Forbidden, "Unable to return the Secured Users Tree Results: " + ex.Message);
             }
 
-            return Users;
+            return Request.CreateResponse(HttpStatusCode.OK, Users);
         }
 
         //(api/users/tree?DomainOrServerName={computer name/domain}&UserName={username}&Password={password})
         [HttpGet]
         [ActionName("tree")]
-        public List<Models.SecurityNode> GetUserTree(string DomainOrServerName, string UserName, string Password)
+        public HttpResponseMessage GetUserTree(string DomainOrServerName, string UserName, string Password)
         {
             List<Models.SecurityNode> Users = new List<Models.SecurityNode>();
 
@@ -44,19 +43,18 @@ namespace Square9.SecurityDisplay.Controllers
                 var logic = new Square9.SecurityDisplay.Logic.UsersLogic();
                 Users = logic.GetSecuredUsersTree(DomainOrServerName, UserName, Password);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return Request.CreateResponse(HttpStatusCode.Forbidden, "Unable to return the Secured Users Tree Results: " + ex.Message);
             }
 
-            return Users;
+            return Request.CreateResponse(HttpStatusCode.OK, Users);
         }
 
         //(api/users/tree?DomainOrServerName={computer name/domain}&UserName={username}&Password={password})
         [HttpGet]
         [ActionName("secured")]
-        public List<Models.SecuredGroup> GetSecuredUserList(string DomainOrServerName, string UserName, string Password, string Secured = "secured")
+        public HttpResponseMessage GetSecuredUserList(string DomainOrServerName, string UserName, string Password, string Secured = "secured")
         {
             List<Models.SecuredGroup> Users = new List<Models.SecuredGroup>();
 
@@ -65,19 +63,19 @@ namespace Square9.SecurityDisplay.Controllers
                 var logic = new Square9.SecurityDisplay.Logic.UsersLogic();
                 Users = logic.GetSecuredUsers(DomainOrServerName, UserName, Password);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                return Request.CreateResponse(HttpStatusCode.Forbidden, "Unable to return the Secured Users List: " + ex.Message);
             }
 
-            return Users;
+            return Request.CreateResponse(HttpStatusCode.Forbidden, Users);
         }
 
         //(api/users/tree?DomainOrServerName={computer name/domain}&UserName={username}&Password={password})
         [HttpGet]
         [ActionName("permissions")]
-        public List<Models.Permissions> GetAllDatabasePermissions(int DatabaseID, bool isDomain = true)
+        public HttpResponseMessage GetAllDatabasePermissions(int DatabaseID, bool isDomain = true)
         {
             List<Models.Permissions> permissions = new List<Models.Permissions>();
             IEnumerable<string> headerValues;
@@ -93,13 +91,12 @@ namespace Square9.SecurityDisplay.Controllers
                 var authData = logic.GetAuthValues(authHeader);
                 permissions = logic.GetAllDatabasePermissions(authData.Domain, authData.Username, authData.Password, DatabaseID, isDomain);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return Request.CreateResponse(HttpStatusCode.Forbidden, "Unable to return permissions: " + ex.Message);
             }
 
-            return permissions;
+            return Request.CreateResponse(HttpStatusCode.OK, permissions);
         }
     }
 }

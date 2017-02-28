@@ -153,6 +153,7 @@
     <Content Include="AngularControllers\DatabaseController.js" />
     <Content Include="AngularControllers\DisplayController.js" />
     <Content Include="AngularControllers\LoginController.js" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -160,7 +161,12 @@
     <Content Include="Partials\databases.view.html" />
     <Content Include="Partials\display.view.html" />
     <Content Include="Partials\home.view.html" />
+    <Content Include="Partials\loading.view.html" />
     <Content Include="Partials\login.view.html" />
+    <Content Include="scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="scripts\jquery-3.1.1.min.map" />
     <None Include="Web.Debug.config">
