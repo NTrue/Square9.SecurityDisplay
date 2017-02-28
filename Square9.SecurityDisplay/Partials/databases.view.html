@@ -3,13 +3,4 @@
     <div class="btn-group-vertical" role="group" style="width:100%">
         <button class="btn btn-default" ng-repeat="database in DatabaseList.Databases" ng-click="SelectDB(database.Id, database.Name)">{{database.Name}}</button>
     </div>
-    <!--Modal-->
-    <div class="modal fade" id="loadingModal" tabindex="-1" role="alert" aria-labelledby="mySmallModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-    </div>
 </div>
