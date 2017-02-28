@@ -173,6 +173,7 @@ namespace Square9.SecurityDisplay.Logic
                 logic.Password = Password;
 
                 List<Models.SecuredGroup> SecuredUsers = logic.GetSecuredUsers(Domain, UserName, Password);
+                Models.Permissions permission = new Models.Permissions();
 
                 foreach (var entry in SecuredUsers)
                 {
@@ -189,14 +190,15 @@ namespace Square9.SecurityDisplay.Logic
                             var archivesNode = DBNode.Children.Where(x => x.Type == "archive");
                             foreach (var archive in archivesNode)
                             {
+                                
                                 //Is a Group
                                 if (entry.Type == 0)
                                 {
-
+                                    
                                     //var groupUsers = logic.GetUsersOfGroup(DomainOrServerName, entry.Name, domain);
                                     var groupUsers = logic.GetGroupUsers(DomainOrServerName, entry.Name, domain);
 
-                                    var permission = logic.setPermissions(DBNode.DbId, DBNode.Label, archive.Id, archive.Label, entry.Name);
+                                    permission = logic.setPermissions(DBNode.DbId, DBNode.Label, archive.Id, archive.Label, entry.Name);
                                     if(permission != null){
                                         permissions.Add(permission);
                                     }
@@ -206,8 +208,8 @@ namespace Square9.SecurityDisplay.Logic
                                     {
                                         if (permission != null)
                                         {
-                                            permission.User = user;
-                                            permissions.Add(permission);
+                                            //Issue #10 NTrue 2/28/2017
+                                            permissions.Add(logic.setPermissions(DBNode.DbId, DBNode.Label, archive.Id, archive.Label, entry.Name, user));
                                         }
 
                                     }
@@ -215,7 +217,7 @@ namespace Square9.SecurityDisplay.Logic
                                 //Is a User 
                                 else
                                 {
-                                    var permission = logic.setPermissions(DBNode.DbId, DBNode.Label, archive.Id, archive.Label, "", entry.Name);
+                                    permission = logic.setPermissions(DBNode.DbId, DBNode.Label, archive.Id, archive.Label, "", entry.Name);
                                     if (permission != null)
                                     {
                                         permissions.Add(permission);
